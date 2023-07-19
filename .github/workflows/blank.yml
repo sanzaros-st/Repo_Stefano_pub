@@ -15,10 +15,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      - name: Setup Azure CLI Command
+      - name: Set  environment 
         run: |
-          sudo curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-          az --version
+          sudo apt-get update -y
+          sudo apt-get install azure-cli jq gh -y
                     
       - name: Login to Azure
         uses: azure/login@v1
@@ -27,7 +27,11 @@ jobs:
           allow-no-subscriptions: true
       
       - name: Get secret from Azure Key Vault
-        run: |
+        uses: azure/cli@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+          
             secretValue=$(az keyvault secret show --name "newtest" --vault-name "kvmariotest" --query "value")
             echo "SECRETVALUE="$secretValue
         env:
