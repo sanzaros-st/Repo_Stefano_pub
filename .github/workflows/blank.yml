@@ -29,7 +29,7 @@ jobs:
       - name: Get secret from Azure Key Vault
         run: |
           
-            secretValue=$(az keyvault secret show --name "newtest" --vault-name "kvmariotest" --query "value")
+            secretValue=$(az keyvault secret show --name "pass2test" --vault-name "kvmariotest" --query "value")
             echo "SECRETVALUE="$secretValue
         env:
           AZURE_KEYVAULT_URI: ${{ secrets.AZURE_KEYVAULT_URI }}
